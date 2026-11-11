@@ -46,6 +46,7 @@ LOGFILE="$WORK/run.log"
 STATUS="en cours"
 FAILED_STEP=""
 VHOST_MODIFIED=0
+VHOST_TOUCHED=0
 BACKUP_FILE=""
 VHOST_BACKUP=""
 CERT_ACTION="aucune"
@@ -69,7 +70,7 @@ fail() {
 
 nginx_cert_missing() {
   # print every ssl_certificate path referenced by enabled sites that does not exist
-  grep -rhE '^\s*ssl_certificate(_key)?\s' /etc/nginx/sites-enabled/ /etc/nginx/conf.d/ 2>/dev/null \
+  grep -RhE '^\s*ssl_certificate(_key)?\s' /etc/nginx/sites-enabled/ /etc/nginx/conf.d/ 2>/dev/null \
     | sed -E 's/^\s*ssl_certificate(_key)?\s+//; s/;.*$//' | sort -u \
     | while read -r p; do [ -e "$p" ] || echo "$p"; done
 }
@@ -134,7 +135,7 @@ write_report() {
     echo "* Sauvegarde : \`${BACKUP_FILE:-non effectuée}\`"
     echo "* Copie du vhost original : \`${VHOST_BACKUP:-non effectuée}\`"
     echo "* Action sur le certificat : **$CERT_ACTION**"
-    echo "* Vhost nginx modifié temporairement : $([ "$VHOST_MODIFIED" = 1 ] && echo oui || echo non)"
+    echo "* Vhost nginx modifié temporairement : $([ "$VHOST_TOUCHED" = 1 ] && echo oui || echo non)"
     echo
     echo "## 7. Journal d’exécution"
     echo
@@ -316,6 +317,7 @@ trap 'rc=$?; [ $rc -ne 0 ] && restore_stash; on_exit' EXIT
 } >"$WORK/http-only.conf"
 
 VHOST_MODIFIED=1
+VHOST_TOUCHED=1
 cp "$WORK/http-only.conf" "$VHOST" || fail "écriture du vhost HTTP"
 [ -e "/etc/nginx/sites-enabled/$(basename "$VHOST")" ] || ln -s "$VHOST" "/etc/nginx/sites-enabled/$(basename "$VHOST")"
 
