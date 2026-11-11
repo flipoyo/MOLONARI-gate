@@ -10,12 +10,30 @@ Anticipating further customization (dataloggers API, remote MCMC, chatbot and co
 
 The website (html pages) is hosted by the VPS and built with WordPress. It should be accessible with the domain name (DNS) `molonari.io`, which was bought on **Namecheap**.
 
+## What to read, for what
+
+| You want to | Read | Where it runs |
+|---|---|---|
+| Understand how the site follows MOLONARI1D | *Keeping the WordPress site in step* below, then [website/wordpress_building.md](website/wordpress_building.md) | — |
+| Connect `molosite` and push pages from your laptop | *Connecting `molosite` to the site* below | your terminal, in `molonari.io/` of the Operating Space |
+| Edit a page | [website/wordpress_building.md](website/wordpress_building.md), *Who edits what*: generated pages in `website/templates/`, managed pages in `website/pages/`, editorial pages in WordPress | git, then `pixi run site push` |
+| Take a page edited in WordPress back into git (`drift`) | [website/wordpress_building.md](website/wordpress_building.md), *The routine* | your terminal |
+| Know what runs on the server, check it, rebuild it | [server/OperatingSpaceDeploy.md](server/OperatingSpaceDeploy.md) | the VPS, as root |
+| Read the last automatic sync | `tail -30 /var/log/molosite-sync.log` ([server/OperatingSpaceDeploy.md](server/OperatingSpaceDeploy.md), § 10) | the VPS |
+| Change the `.cgs` of the server, the receiver or its database | [server/reset-data-receiver.md](server/reset-data-receiver.md) | your laptop, then the VPS |
+| Change what the `askdb` page shows | [website/wordpress_sqlite_plugin.md](website/wordpress_sqlite_plugin.md), then `reset-data-receiver` | the VPS |
+| Recover the HTTPS certificate | [deployment/vps115892/RECOVERY_HTTPS_CERTIFICATE.md](deployment/vps115892/RECOVERY_HTTPS_CERTIFICATE.md); past incidents in [deployment/vps115892/](deployment/vps115892/) | the VPS |
+| Set up a server from nothing (DNS, VPS, WordPress) | *Configuring the DNS* below, [server/vps_config.md](server/vps_config.md), [website/wordpress_config.md](website/wordpress_config.md), then [server/OperatingSpaceDeploy.md](server/OperatingSpaceDeploy.md) § 11 | Namecheap, LWS, the VPS |
+
+The server scripts are in [server/vps/](server/vps/) (`molosite-sync.sh`, `reset-data-receiver.sh`, `vps.env.example`); they are copied to the VPS, never run from a laptop. `pixi run test-all` checks the version, runs the tests of `molosite`, renders every page offline, and checks that the server scripts parse.
+
 ## Configuration
 
-For now, we split the configuration process into three parts:
+The configuration is in four parts:
 - configuring the DNS (molonari.io) with Namecheap: *see below*
 - configuring the VPS with LWS: *see `server/vps_config.md`*
-- configuring WordPress on the VPS: *see `website/wordpress_config.md`*
+- configuring WordPress on the VPS: *see `website/wordpress_config.md`*, then [website/wordpress_building.md](website/wordpress_building.md)
+- installing the Operating Space and the automatic sync on the VPS: *see [server/OperatingSpaceDeploy.md](server/OperatingSpaceDeploy.md)*
 
 ## Configuring the DNS
 
