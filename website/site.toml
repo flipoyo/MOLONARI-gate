@@ -5,10 +5,6 @@ branch = "CGS-MOLO"
 cgs_file = ".config/molonari.cgs"
 cgs_variants = [".config/molonari.cgs", ".config/molonari-light.cgs", ".config/simu-direct.cgs", ".config/install-orx.cgs"]
 
-[sections]
-recompose = "README.md#Recompose the Operating Space"
-admin = "README.md#Administration with pixi"
-
 [roles]
 "." = "MOLONARI1D: the entry point. It recomposes the Operating Space, is administered with pixi, and carries the project guides."
 "Molonaviz" = "MOLONARI-API: the Molonaviz application, the receiver and the database."
@@ -16,6 +12,10 @@ admin = "README.md#Administration with pixi"
 "hardware" = "MOLONARI-hardware: the sensors, the datalogger and the network around them, as documentation and code."
 "molonari.io" = "MOLONARI-gate: this website, its server and deployment, and the molosite tool that keeps the site in step with this branch."
 "computo" = "MOLONARI-computo: from temperatures measured in a river bed to the water flowing through it, with its uncertainty."
+
+[sections]
+"recompose" = "README.md#Recompose the Operating Space"
+"admin" = "README.md#Administration with pixi"
 
 [[pages]]
 slug = "development"
@@ -83,12 +83,18 @@ pulled_sha256 = "8966744391fbd41c251a082a73e64a000dfea56cf74f9b21c6c9b5e94bb267b
 
 [[pages]]
 slug = "operating-space"
+id = 250
 title = "Operating Space"
 mode = "generated"
 template = "operating-space.md.j2"
+parent = 0
+menu_order = 0
 
 [[pages]]
 slug = "get-started"
+id = 251
 title = "Get started"
 mode = "generated"
 template = "get-started.md.j2"
+parent = 0
+menu_order = 0
