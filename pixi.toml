@@ -1,0 +1,14 @@
+# MOLONARI-gate (molonari.io): deployment notes, server and website. No dependency of its own: pixi only runs the version tasks.
+[workspace]
+name = "molonari-gate"
+version = "0.1.1"
+channels = ["conda-forge"]
+platforms = ["linux-64", "osx-64", "osx-arm64", "win-64"]
+
+[dependencies]
+python = ">=3.11,<3.14"
+
+[tasks]
+# SemVer of this repository: pixi.toml is the reference, see scripts/bump_version.py
+bump-version = "python scripts/bump_version.py"
+check-version = "python scripts/bump_version.py --check"

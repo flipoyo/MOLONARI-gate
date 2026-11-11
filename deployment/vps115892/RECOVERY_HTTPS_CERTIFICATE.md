@@ -1,5 +1,17 @@
 # RECOVERY_HTTPS_CERTIFICATE.md
 
+## Automated recovery
+
+Steps 1-7 and the backup are automated by `recov-https-certificate.sh`
+(run as root on the VPS). It backs up `/etc/nginx` and `/etc/letsencrypt`
+to `/root/backups`, switches the vhost to HTTP only, recreates the certificate,
+restores the original vhost, validates, rolls back on failure, and writes
+`INCIDENT_<date>.md` next to the script.
+
+```bash
+sudo ./recov-https-certificate.sh
+```
+
 ## Symptom
 
 The website is no longer reachable in HTTPS.
