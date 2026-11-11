@@ -169,3 +169,33 @@ def test_not_a_git_checkout_fails_closed(tmp_path):
     from molosite.sync import gate_dirty
     with pytest.raises(SyncError):
         gate_dirty(tmp_path)
+
+
+@responses.activate
+def test_pull_lists_media_and_save_keeps_header(gate, tmp_path):
+    raw = '<!-- wp:image {"id":41} -->\n<figure><img class="wp-image-41" src="x"/></figure>\n<!-- /wp:image -->'
+    responses.get(f"{API}/pages", json=[{**live(raw, 32), "slug": "a"}])
+    responses.get(f"{API}/media/41", json={"source_url": "https://molonari.io/wp-content/uploads/a.png"})
+    responses.get("https://molonari.io/wp-content/uploads/a.png", body=b"PNG")
+    new, _ = pull(Site(), gate, wp())
+    import tomllib, hashlib
+    media = tomllib.loads((gate / "website/media.toml").read_text())["media"]
+    assert media == [{"id": 41, "url": "https://molonari.io/wp-content/uploads/a.png", "sha256": hashlib.sha256(b"PNG").hexdigest()}]
+    path = tmp_path / "site.toml"
+    path.write_text("# header\nbase_url = \"https://molonari.io\"\n")
+    save(new, path)
+    assert path.read_text().startswith("# header\n") and load(path) == new
+
+
+@responses.activate
+def test_push_refuses_a_page_changed_since_plan(gate, site, space):
+    old = "<p>old</p>"
+    site = Site(pages=(Page("molonari", 6, mode="managed", pulled_sha256=marker.digest(old)),))
+    responses.get(f"{API}/pages/6", json=live(old))
+    post = responses.post(f"{API}/pages/6", json={"id": 6})
+    entries = plan(site, gate, wp(), factory(space))
+    assert entries[0].action == UPDATE
+    responses.replace(responses.GET, f"{API}/pages/6", json=live("<p>edited meanwhile</p>"))
+    lines = []
+    assert push(site, gate, wp(), entries, set(), factory(space), lines.append) == 1
+    assert post.call_count == 0 and "changed on the site" in lines[0]

@@ -5,6 +5,8 @@ from __future__ import annotations
 import datetime
 import difflib
 import hashlib
+import json
+import re
 import subprocess
 from dataclasses import dataclass, field
 from pathlib import Path
@@ -92,6 +94,8 @@ class Entry:
     live: str | None = None  # the live raw content, None when the page does not exist
     diff: str = ""
     note: str = ""
+    facts: dict | None = None  # generated pages: what the plan rendered from; push renders from the same facts
+    source: object | None = None
 
 
 def plan(site: Site, root: Path, wp: WordPress, source_factory: Callable[[], object], pages: list[str] | None = None) -> list[Entry]:
@@ -110,23 +114,25 @@ def plan(site: Site, root: Path, wp: WordPress, source_factory: Callable[[], obj
                 source = source_factory()
                 facts = gather(source, site)
             body, src = render_generated(root, page, facts, source, lookup_media), f"MOLONARI1D@{facts['sha']}"
+            pinned = (facts, source)
         else:
             body, src = read_managed(root, page), f"MOLONARI-gate@{gate_sha(root)}"
+            pinned = (None, None)
         body = _norm(body)
         live_page = wp.get_page(page.id) if page.id is not None else wp.find_page(page.slug)
         if live_page is None:
-            entries.append(Entry(page, CREATE, body, src))
+            entries.append(Entry(page, CREATE, body, src, facts=pinned[0], source=pinned[1]))
             continue
         live = live_page["content"]["raw"]
         live_body, mark = marker.split(live)
         baseline = bool(page.pulled_sha256) and marker.digest(live) == page.pulled_sha256
         trusted = (mark is not None and marker.intact(live)) or baseline
-        entry = Entry(page, UNCHANGED, body, src, live)
+        entry = Entry(page, UNCHANGED, body, src, live, facts=pinned[0], source=pinned[1])
         if _norm(live_body) == body and (trusted or mark is None):
             pass
         elif trusted:
             entry.action = UPDATE
-            entry.diff = "".join(difflib.unified_diff(_norm(live_body).splitlines(True), (body + "\n").splitlines(True),
+            entry.diff = "".join(difflib.unified_diff((_norm(live_body) + "\n").splitlines(True), (body + "\n").splitlines(True),
                                                       f"{page.slug} (live)", f"{page.slug} (git)"))
         else:
             entry.action = DRIFT
@@ -151,13 +157,16 @@ def push(site: Site, root: Path, wp: WordPress, entries: list[Entry], adopt: set
             refused += 1
             continue
         if e.live is not None:
+            now = wp.get_page(e.page.id)["content"]["raw"] if e.page.id is not None else None
+            if now is not None and now != e.live:
+                say(f"refused  {slug}: changed on the site since the plan. Run plan again")
+                refused += 1
+                continue
             backup.mkdir(parents=True, exist_ok=True)
             (backup / f"{slug}.html").write_bytes(e.live.encode("utf-8"))
         body = e.body
         if e.page.mode == "generated":  # the media were looked up by plan: upload what is missing, then render again
-            source = source_factory()
-            facts = gather(source, site)
-            body = _norm(render_generated(root, e.page, facts, source, lambda n, d: wp.find_media(n) or wp.upload_media(n, d)))
+            body = _norm(render_generated(root, e.page, e.facts, e.source, lambda n, d: wp.find_media(n) or wp.upload_media(n, d)))
         content = marker.write(body, e.src)
         if e.action == CREATE:
             wp.create_page(slug, e.page.title or slug, content, e.page.parent, e.page.menu_order)
@@ -167,9 +176,25 @@ def push(site: Site, root: Path, wp: WordPress, entries: list[Entry], adopt: set
     return 1 if refused else 0
 
 
+_MEDIA_ID = re.compile(r'wp-image-(\d+)|"id":(\d+)[^}]*?"sizeSlug"|<!-- wp:(?:image|cover|gallery)[^>]*"id":(\d+)')
+
+
+def media_ids(raw: str) -> set[int]:
+    return {int(n) for m in _MEDIA_ID.finditer(raw) for n in m.groups() if n}
+
+
+def write_media(root: Path, wp: WordPress, ids: set[int]) -> None:
+    """website/media.toml: id, URL and sha256 of the media the pages use. The files are not copied into git."""
+    out = ["# Media used by the pages (not stored in git). Written by `pixi run site pull`."]
+    for mid in sorted(ids):
+        url = wp.get_media(mid)["source_url"]
+        out += ["", "[[media]]", f"id = {mid}", f"url = {json.dumps(url)}", f'sha256 = "{hashlib.sha256(wp.download(url)).hexdigest()}"']
+    (root / "website" / "media.toml").write_text("\n".join(out) + "\n", encoding="utf-8")
+
+
 def pull(site: Site, root: Path, wp: WordPress, slugs: list[str] | None = None) -> tuple[Site, list[str]]:
     """Write the raw block markup of every page to website/pages/<slug>.html, unchanged, and record it in site.toml."""
-    written = []
+    written, ids = [], set()
     for live in wp.list_pages():
         slug = live["slug"]
         if slugs and slug not in slugs:
@@ -183,4 +208,7 @@ def pull(site: Site, root: Path, wp: WordPress, slugs: list[str] | None = None) 
         site = with_page(site, Page(slug=slug, id=live["id"], title=title, parent=live.get("parent", 0),
                                     menu_order=live.get("menu_order", 0), pulled_sha256=marker.digest(raw)))
         written.append(slug)
+        ids |= media_ids(raw)
+    if not slugs:
+        write_media(root, wp, ids)
     return site, written

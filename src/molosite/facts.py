@@ -40,6 +40,14 @@ def section(markdown: str, heading: str) -> str:
     return "\n".join(lines[start:]).strip("\n")
 
 
+_RELATIVE = re.compile(r"\]\((?!https?:|#|mailto:|/)([^)\s]+)\)")
+
+
+def absolute_links(markdown: str, repo: str, branch: str) -> str:
+    """A link that is relative to the repository README points at GitHub, which is where the file is."""
+    return _RELATIVE.sub(lambda m: f"](https://github.com/{repo}/blob/{branch}/{m.group(1)})", markdown)
+
+
 def gather(source, site: Site) -> dict:
     cgs = load_toml(source, ".", site.cgs_file)
     entries = []
@@ -71,6 +79,6 @@ def gather(source, site: Site) -> dict:
     sections = {}
     for key, spec in site.sections.items():
         path, _, heading = spec.partition("#")
-        sections[key] = section(source.read(".", path), heading)
+        sections[key] = absolute_links(section(source.read(".", path), heading), main["slug"], site.branch)
     return {"repos": repos, "main": main, "sha": main["sha"], "date": source.date("."), "branch": site.branch,
             "variants": list(site.cgs_variants), "sections": sections}

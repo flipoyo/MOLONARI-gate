@@ -53,3 +53,9 @@ def test_section_missing_heading_fails():
 
 def test_first_paragraph_skips_badges():
     assert first_paragraph("# T\n\n![x](y)\n\nHello\nworld.\n\nmore") == "Hello world."
+
+
+def test_relative_links_point_at_github():
+    from molosite.facts import absolute_links
+    out = absolute_links("[a](pixi.toml) [b](https://x.y) [c](#top) [d](.config)", "o/r", "CGS-MOLO")
+    assert out == "[a](https://github.com/o/r/blob/CGS-MOLO/pixi.toml) [b](https://x.y) [c](#top) [d](https://github.com/o/r/blob/CGS-MOLO/.config)"

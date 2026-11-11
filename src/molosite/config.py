@@ -98,7 +98,14 @@ def dump(site: Site) -> str:
 
 
 def save(site: Site, path: Path) -> None:
-    path.write_text(dump(site), encoding="utf-8")
+    """Write site.toml; the comment lines at the top of the existing file are kept."""
+    header = ""
+    if path.is_file():
+        for line in path.read_text(encoding="utf-8").splitlines(True):
+            if not line.startswith("#"):
+                break
+            header += line
+    path.write_text(header + dump(site), encoding="utf-8")
 
 
 def with_page(site: Site, page: Page) -> Site:

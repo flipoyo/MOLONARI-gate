@@ -5,7 +5,90 @@ branch = "CGS-MOLO"
 cgs_file = ".config/molonari.cgs"
 cgs_variants = [".config/molonari.cgs", ".config/molonari-light.cgs", ".config/simu-direct.cgs", ".config/install-orx.cgs"]
 
-[roles]
-Molonaviz = "MOLONARI-API: the Molonaviz application, the receiver and the database."
-
 [sections]
+recompose = "README.md#Recompose the Operating Space"
+admin = "README.md#Administration with pixi"
+
+[roles]
+"." = "MOLONARI1D: the entry point. It recomposes the Operating Space, is administered with pixi, and carries the project guides."
+"Molonaviz" = "MOLONARI-API: the Molonaviz application, the receiver and the database."
+"data" = "MOLO-data-light: the project data, with the laboratory metadata, the raw measurements kept unmodified and the processed data."
+"hardware" = "MOLONARI-hardware: the sensors, the datalogger and the network around them, as documentation and code."
+"molonari.io" = "MOLONARI-gate: this website, its server and deployment, and the molosite tool that keeps the site in step with this branch."
+"computo" = "MOLONARI-computo: from temperatures measured in a river bed to the water flowing through it, with its uncertainty."
+
+[[pages]]
+slug = "development"
+id = 227
+title = "Developing MOLONARI"
+mode = "generated"
+template = "development.md.j2"
+parent = 0
+menu_order = 0
+pulled_sha256 = "84b064e08d6b99e7f154e49e7305b75e22aa1ddc47c8d16cbcd4212674263778"
+
+[[pages]]
+slug = "lab-testing"
+id = 216
+title = "Testing MOLONARI in the lab"
+mode = "managed"
+parent = 0
+menu_order = 0
+pulled_sha256 = "86a20f9e85f5d872011ddcb4db65c808f8fb26cf31d6db0e90e235aede0f189d"
+
+[[pages]]
+slug = "askdb"
+id = 200
+title = "askdb"
+mode = "editorial"
+parent = 0
+menu_order = 0
+pulled_sha256 = "9c4d6a2d62a71756182ae867e5053ae0367fa017161216e8cb8d67c8f4558fea"
+
+[[pages]]
+slug = "results"
+id = 178
+title = "Results"
+mode = "editorial"
+parent = 0
+menu_order = 0
+pulled_sha256 = "6459f0131f4b2c3fde3d1a1c18f5e31066496bd4f61fd7c00493ced2dbb543cf"
+
+[[pages]]
+slug = "gallery"
+id = 112
+title = "Gallery"
+mode = "editorial"
+parent = 0
+menu_order = 0
+pulled_sha256 = "f32f0348272c67a258b8c00e96f447840f5d9ee02b4f9f6520564cfaa1e05bb7"
+
+[[pages]]
+slug = "molonari-1d"
+id = 32
+title = "Molonari-1D"
+mode = "managed"
+parent = 0
+menu_order = 0
+pulled_sha256 = "42edac9579f075335ed30b701b3bf161649f4796121c340af42a267987b9e31a"
+
+[[pages]]
+slug = "molonari"
+id = 6
+title = "Molonari"
+mode = "managed"
+parent = 0
+menu_order = 0
+pulled_sha256 = "8966744391fbd41c251a082a73e64a000dfea56cf74f9b21c6c9b5e94bb267b9"
+
+[[pages]]
+slug = "operating-space"
+title = "Operating Space"
+mode = "generated"
+template = "operating-space.md.j2"
+
+[[pages]]
+slug = "get-started"
+title = "Get started"
+mode = "generated"
+template = "get-started.md.j2"

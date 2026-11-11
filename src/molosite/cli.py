@@ -73,6 +73,7 @@ def main(argv: list[str] | None = None) -> int:
             print(f"check: {len(site.pages)} page(s), {len(problems)} problem(s)")
             return 1 if problems else 0
         wp = _wordpress(site)
+        print(f"connected as {wp.whoami()}")
         if args.command == "pull":
             site, written = pull(site, GATE_ROOT, wp, args.slugs)
             save(site, args.site)

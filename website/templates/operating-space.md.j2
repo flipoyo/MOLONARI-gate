@@ -1,0 +1,21 @@
+## The Operating Space {#operating-space}
+
+MOLONARI is not one repository but an Operating Space: a set of repositories mounted side by side and kept in step by ComplexGitSync, all on the `{{ branch }}` branch. The file `.config/molonari.cgs` of MOLONARI1D lists them; recomposing the space takes pixi and Git only.
+
+## The repositories {#repositories}
+
+| Repository | Mounted at | Branch | Version | What it is |
+|---|---|---|---|---|
+{% for r in repos %}| [{{ r.name }}]({{ r.url }}) | `{{ r.path }}` | `{{ r.branch }}` | {{ r.version or "-" }} | {{ r.role | replace("|", "/") }} |
+{% endfor %}
+## The variants {#variants}
+
+The same repository offers several spaces, one file each in [.config](https://github.com/{{ main.slug }}/blob/{{ branch }}/.config):
+
+{% for v in variants %}- [{{ v }}](https://github.com/{{ main.slug }}/blob/{{ branch }}/{{ v }})
+{% endfor %}
+## Recompose it {#recompose}
+
+{{ sections.recompose }}
+
+See [Get started](https://molonari.io/get-started/) for the steps in order.

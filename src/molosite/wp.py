@@ -33,11 +33,23 @@ class WordPress:
         except requests.RequestException as exc:
             raise WPError(f"{method} {path}: {type(exc).__name__}") from None
         if not resp.ok:
-            raise WPError(f"{method} {path}: HTTP {resp.status_code}")
+            try:
+                code = f" ({resp.json().get('code')})"  # WordPress's own error code; it never holds a credential
+            except (ValueError, AttributeError):
+                code = ""
+            raise WPError(f"{method} {path}: HTTP {resp.status_code}{code}")
         try:
             return resp.json()
         except ValueError:
             raise WPError(f"{method} {path}: the answer is not JSON") from None
+
+    def whoami(self) -> str:
+        """The login the server sees for these credentials; fails clearly when it does not accept them."""
+        try:
+            return self._call("GET", "/users/me", params={"context": "edit"})["slug"]
+        except WPError as exc:
+            raise WPError(f"the server did not accept the credentials ({exc}). Check MOLO_WP_USER and the application password; "
+                          "if they are right, Apache may be dropping the Authorization header") from None
 
     def list_pages(self) -> list[dict]:
         pages, number = [], 1
@@ -61,6 +73,18 @@ class WordPress:
     def create_page(self, slug: str, title: str, content: str, parent: int = 0, menu_order: int = 0) -> dict:
         body = {"slug": slug, "title": title, "content": content, "parent": parent, "menu_order": menu_order, "status": "publish"}
         return self._call("POST", "/pages", json=body)
+
+    def get_media(self, media_id: int) -> dict:
+        return self._call("GET", f"/media/{media_id}")
+
+    def download(self, url: str) -> bytes:
+        try:
+            resp = self.http.get(url, timeout=60)
+        except requests.RequestException as exc:
+            raise WPError(f"GET media: {type(exc).__name__}") from None
+        if not resp.ok:
+            raise WPError(f"GET media: HTTP {resp.status_code}")
+        return resp.content
 
     def find_media(self, name: str) -> str | None:
         stem = name.rsplit(".", 1)[0]

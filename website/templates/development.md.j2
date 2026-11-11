@@ -1,0 +1,17 @@
+## How we develop MOLONARI {#development}
+
+Development happens on the `{{ branch }}` branch of every repository of the [Operating Space](https://molonari.io/operating-space/). This website follows that branch: its generated pages are rebuilt from it.
+
+## Versions {#versions}
+
+Each repository follows [SemVer](https://semver.org). The version is in the `[workspace]` table of its `pixi.toml`, and `pixi run bump-version` changes it everywhere it is mirrored. Current versions:
+
+{% for r in repos if r.version %}- [{{ r.name }}]({{ r.url }}): {{ r.version }}
+{% endfor %}
+## Commits {#commits}
+
+A commit subject starts with the project name and the new version, for example `{{ main.name }}-{{ main.version }} …`, and the same message is used in every repository the change touched. A release is tagged with `cgitsync tag`.
+
+## Testing {#testing}
+
+- [Testing MOLONARI in the lab](https://molonari.io/lab-testing/): how we built a mock-up of the river environment to test the device from the lab.

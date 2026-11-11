@@ -1,4 +1,4 @@
-# Deploying the MOLONARI website v0.2.0
+# Deploying the MOLONARI website v0.3.0
 
 This file aims to explain the process of deploying the Molonari website.
 

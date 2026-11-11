@@ -1,0 +1,211 @@
+# Media used by the pages (not stored in git). Written by `pixi run site pull`.
+
+[[media]]
+id = 9
+url = "https://molonari.io/wp-content/uploads/2025/10/logo_MOLONARI.png"
+sha256 = "603d14defdcf3d60c1ea15bcd7d2c3aa97050c3f78afd07c09eaa82fd2fcbf3c"
+
+[[media]]
+id = 43
+url = "https://molonari.io/wp-content/uploads/2025/11/water-cycle.png"
+sha256 = "6b53366d2d83d3aa1a65de5944354686d333fd9b3fb8427f22da80df87ea9513"
+
+[[media]]
+id = 44
+url = "https://molonari.io/wp-content/uploads/2025/11/molonari-principle.png"
+sha256 = "b313adc94aaeadee22b3171ec09444bf5da4ed88716a34dfe401ec92306537bb"
+
+[[media]]
+id = 45
+url = "https://molonari.io/wp-content/uploads/2025/11/final-assembly.webp"
+sha256 = "4bc62bf8608240e3bfa7a83fa3fcc99c148f1e4f7caf533a68850521037b8d9f"
+
+[[media]]
+id = 46
+url = "https://molonari.io/wp-content/uploads/2025/11/pressure-sensor.webp"
+sha256 = "81a742f6e2b9f50d1fcd676d165404325a1a7eb605d5ea8eae60ce59cf15f9a4"
+
+[[media]]
+id = 47
+url = "https://molonari.io/wp-content/uploads/2025/11/network.webp"
+sha256 = "387ae84a7293e42a3db6ff9ae27b69c1bb5438cdf7c3d66bb4849af7a5facb41"
+
+[[media]]
+id = 49
+url = "https://molonari.io/wp-content/uploads/2025/11/conductive-heat.webp"
+sha256 = "50a6218d1f4adafedca0d455a435701f8f553f0834973a1f7d63b3df38794864"
+
+[[media]]
+id = 66
+url = "https://molonari.io/wp-content/uploads/2025/11/hydraulic-gradient-1-e1762523933665.png"
+sha256 = "3bc3809ac6a40ad275cc18fdc29eadee90990e3a30dfa15de2e68162ae0a4913"
+
+[[media]]
+id = 67
+url = "https://molonari.io/wp-content/uploads/2025/11/well.jpeg"
+sha256 = "fb559c31ce63df49fba35b9c2e7c81a68f94220b23ad35d58a10b1f48ee89e11"
+
+[[media]]
+id = 69
+url = "https://molonari.io/wp-content/uploads/2025/11/2016-07-12_implantation_point_36-2.webp"
+sha256 = "f28ca0f24435b483985a8d39f780c6193b8283d0d14ea4058c1f3ba089d32821"
+
+[[media]]
+id = 96
+url = "https://molonari.io/wp-content/uploads/2025/11/hydraulic-head-flow.png"
+sha256 = "a749c49d16b4ced2873a40526d50e4bf5c9d726ec4077c2f224553458156231d"
+
+[[media]]
+id = 103
+url = "https://molonari.io/wp-content/uploads/2025/11/distributions.png"
+sha256 = "d43d9783db439a3c1a53df5261a9681e70ea638fa1ace30c17b1b82384023f13"
+
+[[media]]
+id = 106
+url = "https://molonari.io/wp-content/uploads/2025/11/profil_final.png"
+sha256 = "b606b0a21a96f942b78c2bb342e597b2c1c777b468583eec07730f56cc6fd8ec"
+
+[[media]]
+id = 113
+url = "https://molonari.io/wp-content/uploads/2025/11/2016-07-12_implantation_point_36-2-1.webp"
+sha256 = "f28ca0f24435b483985a8d39f780c6193b8283d0d14ea4058c1f3ba089d32821"
+
+[[media]]
+id = 124
+url = "https://molonari.io/wp-content/uploads/2025/11/image20.webp"
+sha256 = "76b3d708ff42fa8bc44447063af25a6867722021621b8db3ea68b1df15eaf04f"
+
+[[media]]
+id = 125
+url = "https://molonari.io/wp-content/uploads/2025/11/image21.webp"
+sha256 = "50bc15f5752cc39fc08e10663a52d80ed3fb7c215dae6827c2fa2e1996f0193c"
+
+[[media]]
+id = 133
+url = "https://molonari.io/wp-content/uploads/2025/11/image43.webp"
+sha256 = "754dd8cb371776d28f90b6f03c70474cef7b227716c90bdaf3394edddeed7b82"
+
+[[media]]
+id = 135
+url = "https://molonari.io/wp-content/uploads/2025/11/image45.webp"
+sha256 = "3528baf73867f3778edce3e465e72c2e77bfeb89ddd22a010421e829a5dda1d8"
+
+[[media]]
+id = 147
+url = "https://molonari.io/wp-content/uploads/2025/11/molo6.webp"
+sha256 = "2dab0e81476674076afead1993b339dc9743f4eb7d1d7dfb6f8b81bf3c4393cf"
+
+[[media]]
+id = 153
+url = "https://molonari.io/wp-content/uploads/2025/11/riviere-1.webp"
+sha256 = "93c616431be9a44150c26975a06de55585d3996312398b76ea89b9edce429fd5"
+
+[[media]]
+id = 157
+url = "https://molonari.io/wp-content/uploads/2025/11/2016-08-02_Constructionp531-2.webp"
+sha256 = "faa1ec026c4718c1f122a504c52d7df3ae37fec35dc5e78847acc191e82138c3"
+
+[[media]]
+id = 159
+url = "https://molonari.io/wp-content/uploads/2025/11/demo_20231117_112856.webp"
+sha256 = "b55431988f97ce179d247bf5b639769d35edf4669662e89910c69e7e349a337c"
+
+[[media]]
+id = 163
+url = "https://molonari.io/wp-content/uploads/2025/11/image33.webp"
+sha256 = "9195861b7e73a5b7d8f67f3aea6b4fb9e024616479a48d615deff1af2978e58c"
+
+[[media]]
+id = 169
+url = "https://molonari.io/wp-content/uploads/2025/11/image56.webp"
+sha256 = "3765cbacb86f1a9606b207217569e9aa0d4ab1dadefa25ddd274130435e59126"
+
+[[media]]
+id = 170
+url = "https://molonari.io/wp-content/uploads/2025/11/image57.webp"
+sha256 = "ffab3aa53e32ffbb399842faa71a9b461aaeb493e27502c59546eec0944e9074"
+
+[[media]]
+id = 185
+url = "https://molonari.io/wp-content/uploads/2025/11/advective_vert.webp"
+sha256 = "756668996744c4c935253f6232a066140813f546ba0528eae23e0d681353c3f9"
+
+[[media]]
+id = 186
+url = "https://molonari.io/wp-content/uploads/2025/11/darcy_velocity.webp"
+sha256 = "b55dc5fde4c21f596fe8d900017371998aadad82a9b8ada1309230aaf3928661"
+
+[[media]]
+id = 187
+url = "https://molonari.io/wp-content/uploads/2025/11/temperatures.webp"
+sha256 = "dd772014c7f8292ff54287b5ef21775e575de6c9f5f41dd13810333f5d95b86c"
+
+[[media]]
+id = 188
+url = "https://molonari.io/wp-content/uploads/2025/11/temperatures_reconstituted.webp"
+sha256 = "02b572de925aa7dbee76a62a6019a4e3d563f7d290b22e111d19937966c91c31"
+
+[[media]]
+id = 210
+url = "https://molonari.io/wp-content/uploads/2025/11/WhatsApp-Image-2025-11-13-at-23.42.13-scaled-e1763074303471.jpeg"
+sha256 = "404fce9b2258df9aaf4751850d5593bfea17b4ed2a86a4d34d5b7ba7d9e2cd3d"
+
+[[media]]
+id = 211
+url = "https://molonari.io/wp-content/uploads/2025/11/WhatsApp-Image-2025-11-13-at-23.42.131-scaled.jpeg"
+sha256 = "e17c717f5a3f062699d13b2509e6193f14902847d836ad206a5fd99a0b21fe56"
+
+[[media]]
+id = 212
+url = "https://molonari.io/wp-content/uploads/2025/11/WhatsApp-Image-2025-11-13-at-23.42.40-scaled.jpeg"
+sha256 = "583bdd15b448021070ac59d36e508d67b661bc92b315a54da78e53d836fe302d"
+
+[[media]]
+id = 217
+url = "https://molonari.io/wp-content/uploads/2025/11/maquette_1.jpg"
+sha256 = "eb8c727dfd7f2677c48b849fbc28a9c23f04acd7f2ad8c28019340e96410c99b"
+
+[[media]]
+id = 218
+url = "https://molonari.io/wp-content/uploads/2025/11/maquette_2.jpg"
+sha256 = "fb692626de9fa4a78a297615709c959ec4c4b58f88e460f1e98ddd6052994745"
+
+[[media]]
+id = 219
+url = "https://molonari.io/wp-content/uploads/2025/11/maquette_3.jpg"
+sha256 = "337c8fe6f17c0c34b259b1ad8ebd5de891e5bcfc3de2184dfd74209e51abbee7"
+
+[[media]]
+id = 220
+url = "https://molonari.io/wp-content/uploads/2025/11/maquette_4.jpg"
+sha256 = "b0d95c28600d0e75f45a3fedc3f4409576f0cc9c78a20fa839fd1d537b419084"
+
+[[media]]
+id = 221
+url = "https://molonari.io/wp-content/uploads/2025/11/maquette_5.jpg"
+sha256 = "39975ab2ca7cc5919f9473c6923c92f652239da63a9f2084e81d30ce9936ed7c"
+
+[[media]]
+id = 222
+url = "https://molonari.io/wp-content/uploads/2025/11/maquette_6.jpg"
+sha256 = "9082799073ebb637f4be9bc11153a27c2eeaaacad69fd31938c2c17c52c31dae"
+
+[[media]]
+id = 223
+url = "https://molonari.io/wp-content/uploads/2025/11/maquette_7.jpg"
+sha256 = "c28a0a2e1b1bc6b7d06b663456ce600be165b0950afd6866529bf266c20f2318"
+
+[[media]]
+id = 224
+url = "https://molonari.io/wp-content/uploads/2025/11/maquette_8.jpg"
+sha256 = "b3b86281be802703eb83af958c4b99c1b63c30984d7c88407b0606641f5c2338"
+
+[[media]]
+id = 225
+url = "https://molonari.io/wp-content/uploads/2025/11/maquette_9.jpg"
+sha256 = "175590800b214958a6f0146631534faf459e65a36d07cc22540240ef63c6b469"
+
+[[media]]
+id = 243
+url = "https://molonari.io/wp-content/uploads/2026/04/GitHub_Invertocat_White-1.png"
+sha256 = "0d4c235fef9efec54174a7c005fc0fe0ce2d63d35c21898ab5148587111397a9"

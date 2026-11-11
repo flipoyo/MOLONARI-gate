@@ -1,0 +1,297 @@
+<!-- wp:group {"layout":{"type":"flex","orientation":"vertical"}} -->
+<div class="wp-block-group"><!-- wp:group {"style":{"spacing":{"padding":{"top":"var:preset|spacing|50"}}},"layout":{"type":"flex","orientation":"vertical"}} -->
+<div class="wp-block-group" style="padding-top:var(--wp--preset--spacing--50)"><!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|20"}},"layout":{"type":"flex","flexWrap":"nowrap"}} -->
+<div class="wp-block-group"><!-- wp:image {"id":9,"width":"37px","height":"auto","sizeSlug":"full","linkDestination":"none"} -->
+<figure class="wp-block-image size-full is-resized"><img src="https://molonari.io/wp-content/uploads/2025/10/logo_MOLONARI.png" alt="" class="wp-image-9" style="width:37px;height:auto"/></figure>
+<!-- /wp:image -->
+
+<!-- wp:paragraph -->
+<p><a href="https://molonari.io/" data-type="page" data-id="6">MOLONARI</a></p>
+<!-- /wp:paragraph --></div>
+<!-- /wp:group -->
+
+<!-- wp:heading {"level":1} -->
+<h1 class="wp-block-heading">MOLONARI-1D</h1>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">Introduction</h2>
+<!-- /wp:heading -->
+
+<!-- wp:group {"layout":{"type":"flex","orientation":"vertical"}} -->
+<div class="wp-block-group"><!-- wp:paragraph -->
+<p>This page is a first dive into the MOLONARI-1D device for people who want to understand the science behind it and deploy their own sensor.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>The MOLONARI project can be separated into two main parts, that will be detailed as you read:</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:list -->
+<ul class="wp-block-list"><!-- wp:list-item -->
+<li><strong><a href="#computing" data-type="internal" data-id="#computing">Computing</a></strong>: the physics and the equations (code: <a href="https://github.com/flipoyo/MOLONARI-computo">MOLONARI-computo</a>)</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li><strong><a href="#hardware" data-type="internal" data-id="#hardware">Hardware</a></strong>: the sensor itself and the network around (<a href="https://github.com/flipoyo/MOLONARI-hardware">MOLONARI-hardware</a>)</li>
+<!-- /wp:list-item --></ul>
+<!-- /wp:list -->
+
+<!-- wp:image {"id":69,"sizeSlug":"large","linkDestination":"none"} -->
+<figure class="wp-block-image size-large"><img src="https://molonari.io/wp-content/uploads/2025/11/2016-07-12_implantation_point_36-2-1024x681.webp" alt="" class="wp-image-69"/></figure>
+<!-- /wp:image --></div>
+<!-- /wp:group --></div>
+<!-- /wp:group --></div>
+<!-- /wp:group -->
+
+<!-- wp:group {"style":{"spacing":{"padding":{"top":"var:preset|spacing|50"}}},"layout":{"type":"flex","orientation":"vertical"}} -->
+<div id="computing" class="wp-block-group" style="padding-top:var(--wp--preset--spacing--50)"><!-- wp:heading -->
+<h2 class="wp-block-heading">Computing</h2>
+<!-- /wp:heading -->
+
+<!-- wp:quote -->
+<blockquote class="wp-block-quote"><!-- wp:paragraph -->
+<p>Understanding the equations behind MOLONARI</p>
+<!-- /wp:paragraph --></blockquote>
+<!-- /wp:quote -->
+
+<!-- wp:group {"layout":{"type":"flex","orientation":"vertical","justifyContent":"center"}} -->
+<div class="wp-block-group"><!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading">1. Aquifers</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Have you ever dug a hole on the beach to imprison your siblings or your parents? If so, you know that after digging for a while, the sand becomes darker, heavier and wetter: this is because water has infiltrated the sand.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>Surprisingly, this is the case everywhere on Earth. Water infiltrates the soil and geological layers under our feet, from top to bottom, until it finds an impermeable layer. The geological layers that host water are made of small grains like clay (~0.5 μm) and sand (~0.5 mm). They are called the <em>matrix</em>, and the matrix filled with water is called an <em>aquifer</em>.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>This water, although slowed by the matrix, can flow. Because of gravity, the <em>water level</em> tends to flatten itself: this is why digging a deep hole (10-30 m) is enough to build a well!</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:group {"layout":{"type":"flex","orientation":"vertical","justifyContent":"center"}} -->
+<div class="wp-block-group"><!-- wp:image {"id":67,"sizeSlug":"full","linkDestination":"none"} -->
+<figure class="wp-block-image size-full"><img src="https://molonari.io/wp-content/uploads/2025/11/well.jpeg" alt="" class="wp-image-67"/></figure>
+<!-- /wp:image -->
+
+<!-- wp:paragraph {"align":"center","fontSize":"small"} -->
+<p class="has-text-align-center has-small-font-size">Source: <a href="https://www.uoanbar.edu.iq/eStoreImages/Bank/3492.pdf">https://www.uoanbar.edu.iq/eStoreImages/Bank/3492.pdf</a></p>
+<!-- /wp:paragraph --></div>
+<!-- /wp:group -->
+
+<!-- wp:paragraph -->
+<p>Because water flows in the aquifer, the aquifer exchanges water with its nearby mediums: rivers, oceans, and rainfall. Thus, the water level varies. A low water level corresponds to a period of drought, and a high water level can be observed after a period of rains and water infiltration.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:group {"layout":{"type":"flex","orientation":"vertical","justifyContent":"center"}} -->
+<div class="wp-block-group"><!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading">2. The hydraulic head</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>This is what the Molonari project tries to monitor: how do rivers and aquifer interact? How much water is exchanged, and in what direction?</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>This question is not new; and since the 19th century, scientists and engineers have laid out the foundations of a science of the underground water: <em>hydrogeology</em>.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>At the heart of this science is an important measurement, called the <em>hydraulic head</em>. Expressed in meters, this measurement combines the water's height, pressure and kinetic energy in order to ease the understanding of water flows: the higher the head, the more the water wants to "go down". The water of an aquifer with a high head will eventually "push" the water of a neighbor aquifer with a low head, until the heads balance together. In an aquifer, water has almost no kinetic energy, so the hydraulic head is defined as</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph {"align":"center","style":{"layout":{"selfStretch":"fit","flexSize":null}}} -->
+<p class="has-text-align-center">$latex h = z+\frac p {\rho g} $</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>where $latex z$ is the height of the particle of water, $latex p$ the pressure around, $latex \rho$ the volumic mass of water and $latex g$ the gravity acceleration constant.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:image {"id":66,"width":"417px","height":"auto","scale":"cover","sizeSlug":"full","linkDestination":"none"} -->
+<figure class="wp-block-image size-full is-resized"><img src="https://molonari.io/wp-content/uploads/2025/11/hydraulic-gradient-1-e1762523933665.png" alt="" class="wp-image-66" style="object-fit:cover;width:417px;height:auto"/></figure>
+<!-- /wp:image -->
+
+<!-- wp:paragraph {"align":"center","fontSize":"small"} -->
+<p class="has-text-align-center has-small-font-size">In this example, $latex h_A &gt; h_B$ so the water flows from A to B.<br>Source: <a href="https://punchlistzero.com/hydraulic-gradient/">https://punchlistzero.com/hydraulic-gradient/</a></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading">3. Darcy speed</h3>
+<!-- /wp:heading -->
+
+<!-- wp:group {"layout":{"type":"flex","orientation":"vertical"}} -->
+<div class="wp-block-group"><!-- wp:paragraph -->
+<p>Now, how do we express the fact that water flows in an aquifer? We already assumed that a water particle had no kinetic energy: thus, we use the <em>flow</em>.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>The Darcy law links the surficial water flow $latex \overrightarrow q$ ($latex m.s^{-1}$) with the hydraulic head, where $latex K$ ($latex m.s^{-1}$) is the <em>hydraulic conductivity</em> of the medium.</p>
+<!-- /wp:paragraph --></div>
+<!-- /wp:group -->
+
+<!-- wp:paragraph -->
+<p>$latex \overrightarrow q=-K\overrightarrow\nabla h$</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>For example, if water flows from the river to the aquifer, the surficial water flow should be oriented towards negative altitudes ($latex -e_z$). Otherwise, if water flows from the aquifer to the river, the surficial water flow should oriented towards positive altitudes, meaning that the hydraulic charge is lower in the river than in the aquifer.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:image {"id":96,"width":"409px","height":"auto","sizeSlug":"full","linkDestination":"none"} -->
+<figure class="wp-block-image size-full is-resized"><img src="https://molonari.io/wp-content/uploads/2025/11/hydraulic-head-flow.png" alt="" class="wp-image-96" style="width:409px;height:auto"/></figure>
+<!-- /wp:image -->
+
+<!-- wp:paragraph -->
+<p>Assuming that we know $latex K$, we simply have to measure the hydraulic head at two different altitudes of the same <em>water column</em> under the river to know the flow! This is done using a <em>differential pressure sensor</em>, that compares the pressures at the bottom of the river and 40cm below the riverbed. We can then compute $latex \overrightarrow\nabla h$ between these two points and derive $latex \overrightarrow q$.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading">4. Determining $latex K$</h3>
+<!-- /wp:heading --></div>
+<!-- /wp:group -->
+
+<!-- wp:paragraph -->
+<p>The problem is that $latex K$ varies between mediums... a lot: in gravel, K ~ 30 cm/s, wheras is clay, K ~ 50 nm/s. We need another equation to compute this hydraulic conductivity.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>For that, we have to consider heat exchanges under the riverbed. The heat equation can be written as follows:</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>$latex \frac{\partial\theta}{\partial t}=\kappa_e \Delta\theta+\alpha_e \nabla h \nabla \theta$</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:group {"layout":{"type":"flex","orientation":"vertical"}} -->
+<div class="wp-block-group"><!-- wp:paragraph -->
+<p>where $latex \kappa_e=\frac{\lambda_m}{\rho_mc_m}$ and $latex \alpha_e=\frac{\rho_wc_w}{\rho_mc_m}K$ are parameters that depend on the thermal conductivity $latex \lambda$, thermal capacity $latex c$, intrinsic permeability $latex k$, volumic mass $latex \rho$ and porosity $latex n$ of the medium and water. Some of them we know, some of them we don't.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>We can interpret the heat equation as a sum of two heat flows: the <em>conductive flow</em> $latex -\lambda\nabla\theta$, which happens naturally with matter, and the <em>advective flow</em> $latex q \rho_wc_w\theta$ which happens only when the liquid is moving.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>Now, how can we use this new equation to derive $latex K$?</p>
+<!-- /wp:paragraph --></div>
+<!-- /wp:group -->
+
+<!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading">5. Markov Chains and Bayesian Inversion</h3>
+<!-- /wp:heading -->
+
+<!-- wp:group {"layout":{"type":"flex","orientation":"vertical"}} -->
+<div class="wp-block-group"><!-- wp:paragraph -->
+<p>First, we want to measure $latex \theta$ and its evolutions at different points of the water column. For that, the MOLONARI team chose to add four temperature sensors at variable depths: every 10 centimeters.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>We then compile this temperature and pressure data with a <em>Bayesian inversion</em> in order to know the parameters of the medium. The idea of the algorithm, called a <em>Markov chain</em>, is as follows:</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:list -->
+<ul class="wp-block-list"><!-- wp:list-item -->
+<li>First, we choose a set of parameter values for the medium $latex (K, \lambda_m, n)$ that are acceptable, i.e. within the value range that we know they belong to.</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li>For each one of these parameters sets, we solve the heat equation to get the theoretical temperature profile that we would get with these parameters.</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li>We compare each temperature profile with the actual temperature data.<!-- wp:list -->
+<ul class="wp-block-list"><!-- wp:list-item -->
+<li>When the error is big, we eliminate this parameter set, for we know that it yields inaccurate temperatures.</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li>When the error is small, we keep this parameter set and we generate parameters sets by adding randomized deltas to each one of these parameters.</li>
+<!-- /wp:list-item --></ul>
+<!-- /wp:list --></li>
+<!-- /wp:list-item --></ul>
+<!-- /wp:list -->
+
+<!-- wp:paragraph -->
+<p>By iterating this process on and on, the parameters distribution should converge. The resulting distributions are called <em>a posteriori distributions</em>, and their maxima correspond, with a certain probability, to the value of the parameter of the medium. In other words, we now know the most probable values for $latex K$, $latex \lambda_m$, and $latex n$.</p>
+<!-- /wp:paragraph --></div>
+<!-- /wp:group -->
+
+<!-- wp:image {"id":103,"sizeSlug":"large","linkDestination":"none"} -->
+<figure class="wp-block-image size-large"><img src="https://molonari.io/wp-content/uploads/2025/11/distributions-1024x355.png" alt="" class="wp-image-103"/></figure>
+<!-- /wp:image -->
+
+<!-- wp:paragraph -->
+<p>The following graph shows how well the Markov chain converges to temperature profiles that are close to the reference temperature profile (in orange). The process only knows the green values and outputs the blue curve.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:image {"id":106,"sizeSlug":"full","linkDestination":"none"} -->
+<figure class="wp-block-image size-full"><img src="https://molonari.io/wp-content/uploads/2025/11/profil_final.png" alt="" class="wp-image-106"/></figure>
+<!-- /wp:image --></div>
+<!-- /wp:group -->
+
+<!-- wp:group {"layout":{"type":"flex","orientation":"vertical"}} -->
+<div class="wp-block-group"><!-- wp:group {"style":{"layout":{"selfStretch":"fit","flexSize":null},"spacing":{"padding":{"top":"var:preset|spacing|50"}}},"layout":{"type":"flex","orientation":"vertical"}} -->
+<div id="hardware" class="wp-block-group" style="padding-top:var(--wp--preset--spacing--50)"><!-- wp:heading -->
+<h2 class="wp-block-heading">Hardware</h2>
+<!-- /wp:heading -->
+
+<!-- wp:quote -->
+<blockquote class="wp-block-quote"><!-- wp:paragraph -->
+<p>Building the sensors</p>
+<!-- /wp:paragraph --></blockquote>
+<!-- /wp:quote -->
+
+<!-- wp:group {"layout":{"type":"flex","orientation":"vertical","justifyContent":"center"}} -->
+<div class="wp-block-group"><!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading">1. Overall Architecture</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Now that we understand the equations, we need to build a device that provides:</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:list -->
+<ul class="wp-block-list"><!-- wp:list-item -->
+<li>A differential pressure sensor between the riverbed and the aquifer (~40cm in depth)</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li>4 temperature sensors at variables depths under the riverbed (~10, 20, 30, 40cm in depth)</li>
+<!-- /wp:list-item --></ul>
+<!-- /wp:list -->
+
+<!-- wp:paragraph -->
+<p>The current MOLONARI-1D device fulfills these conditions with two different modules: one for the differential pressure, the other one for the temperatures. In 2025, we have been working on a single device that could embed both.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>The devices are each run by an Arduino board that sends data to a nearby receiver, through an Internet of Things (IoT) Wi-Fi protocol. This receiver then sends the data again to a remote server through the Internet. This in-between receiver allows us to gather the data in real-time, and to know whenever there is a problem on one of the probes.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:image {"id":44,"sizeSlug":"large","linkDestination":"none"} -->
+<figure class="wp-block-image size-large"><img src="https://molonari.io/wp-content/uploads/2025/11/molonari-principle-1024x576.png" alt="" class="wp-image-44"/></figure>
+<!-- /wp:image -->
+
+<!-- wp:paragraph {"align":"center","fontSize":"small"} -->
+<p class="has-text-align-center has-small-font-size">In the 2025 design, temperature and pressure sensors belong to a single probe.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading"></h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p></p>
+<!-- /wp:paragraph --></div>
+<!-- /wp:group --></div>
+<!-- /wp:group --></div>
+<!-- /wp:group --></div>
+<!-- /wp:group -->

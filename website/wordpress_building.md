@@ -1,16 +1,58 @@
 # Building with WordPress
 
+Most pages of molonari.io are no longer edited in WordPress. They live in git, in this repository, and are pushed to the site by `molosite`. Only the editorial pages are edited in the WordPress editor.
+
+## Who edits what
+
+| Mode | Pages today | Edited | How it reaches the site |
+|---|---|---|---|
+| `generated` | `development`, `operating-space`, `get-started` | the template `website/templates/<slug>.md.j2` (Markdown with Jinja), or the sources it reads in the `CGS-MOLO` branch of the Operating Space | `pixi run site push` |
+| `managed` | `molonari` (front), `molonari-1d`, `lab-testing` | the raw block file `website/pages/<slug>.html` | `pixi run site push` |
+| `editorial` | `gallery`, `results`, `askdb` | in WordPress, in the editor | nothing: `molosite` never touches them |
+
+The page map, with each page's id and mode, is `website/site.toml`. A page absent from it is never touched either.
+
+## The routine (from the Operating Space, in a terminal)
+
+```bash
+export MOLO_WP_USER=molosite
+read -rs MOLO_WP_APP_PASSWORD && export MOLO_WP_APP_PASSWORD   # the application password of the molosite account
+
+pixi run molo update .config/molonari.cgs   # the sources must not be behind CGS-MOLO
+pixi run site plan                          # unchanged | update (with the diff) | create | drift; writes nothing
+git add -A && git commit -m "..."           # push refuses a dirty checkout
+pixi run site push                          # applies the plan
+```
+
+Each pushed page ends with a hidden marker (the source commit and the hash of the content). If somebody edits a generated or managed page in WordPress, the next `plan` says `drift` and `push` refuses that page. Take the edit into git with `pixi run site pull <slug>`, review it, commit it, then `pixi run site push --adopt <slug>`. Before every update the live page is saved to `.dev/.backup/<date>/`, and WordPress revisions are a second copy.
+
+The credentials are read from the two environment variables only. Never write them in a file of the tree. The account has the Editor role, never Administrator, and its application password can be revoked on its own (Users, `molosite`, Application Passwords).
+
+## What cannot be pushed
+
+The menu, the header and the footer belong to the Site editor. They are set by hand in WordPress (`Appearance > Editor > Navigation`). `molosite` writes page content and media only, never a plugin, a theme or PHP.
+
+## The server side the sync needs
+
+Two things on the VPS are not in git and are needed for the REST login to work:
+- in the nginx site (`/etc/nginx/sites-available/molonari.io`), in the `location ~ \.php$` block: `fastcgi_param HTTP_AUTHORIZATION $http_authorization;`
+- the must-use plugin `wp-content/mu-plugins/molosite-basic-auth.php`, which copies the Basic login of the `Authorization` header into `PHP_AUTH_USER` and `PHP_AUTH_PW`.
+
+Rebuilding the VPS means redoing both. Without them, `pixi run site` fails with `rest_not_logged_in`.
+
+## Editing an editorial page in WordPress
+
 WordPress is a tool that helps us build robust HTML/CSS pages quickly.
 
 There are 2 main components for a WordPress page:
 - the 'Page' itself
 - the 'Site': content that surrounds the page (header, footer, overall appearance, etc.)
 
-## Logging in as admin
+### Logging in as admin
 
 The `/wp-admin` URL is by default blocked for admin connection. Once logged, you should see a black panel on top of the website pages. From there, you can navigate to the Dashboard, edit the site (overall appearance), add a new page or edit the current page.
 
-## Building a page
+### Building a page
 
 The page/site editor is intuitive if you know the basics of web architecture. It allows you to add/move/delete blocks like
 - text
@@ -23,7 +65,7 @@ When one element is focused, you can change its style on the right panel, or sel
 
 You can then click publish or save in order to save your changes. The effect is immediate on the website.
 
-## Plugins
+### Plugins
 
 WordPress allows for plugins that are very useful for a quick deployment of the website. The ones used by the MOLONARI project are:
 - `MathJax-LaTeX`, for equations rendering

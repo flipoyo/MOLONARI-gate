@@ -1,0 +1,247 @@
+<!-- wp:group {"style":{"spacing":{"padding":{"top":"var:preset|spacing|50"}}},"layout":{"type":"flex","orientation":"vertical"}} -->
+<div class="wp-block-group" style="padding-top:var(--wp--preset--spacing--50)"><!-- wp:heading {"level":1} -->
+<h1 class="wp-block-heading">Testing MOLONARI in the lab</h1>
+<!-- /wp:heading --></div>
+<!-- /wp:group -->
+
+<!-- wp:paragraph -->
+<p>To test the MOLONARI device and the data-processing algorithms in the laboratory, we set up two mock-ups. The first is a column that makes it easy to determine the porous-medium parameters (porosity $latex n$, permeability $latex K$, thermal capacity $latex c_m$) by controlling the water flow rate. The second, a larger-scale mock-up, allows full integration of MOLONARI with the sensor rod and the control unit.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>The porous material used is an arrangement of small beads of various diameters (2mm, 5mm and 7mm).</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">Summary</h2>
+<!-- /wp:heading -->
+
+<!-- wp:list -->
+<ul class="wp-block-list"><!-- wp:list-item -->
+<li><a href="#column-mockup">The column mock-up</a></li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li><a href="#testing">Testing the MOLONARI device</a></li>
+<!-- /wp:list-item --></ul>
+<!-- /wp:list -->
+
+<!-- wp:group {"style":{"spacing":{"padding":{"top":"var:preset|spacing|50"}}},"layout":{"type":"flex","orientation":"vertical"}} -->
+<div id="column-mockup" class="wp-block-group" style="padding-top:var(--wp--preset--spacing--50)"><!-- wp:heading -->
+<h2 class="wp-block-heading">The column mock-up</h2>
+<!-- /wp:heading -->
+
+<!-- wp:quote -->
+<blockquote class="wp-block-quote"><!-- wp:paragraph -->
+<p>Testing the porous material and the inversion algorithm</p>
+<!-- /wp:paragraph --></blockquote>
+<!-- /wp:quote -->
+
+<!-- wp:paragraph -->
+<p>The column offers several practical advantages:</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:list -->
+<ul class="wp-block-list"><!-- wp:list-item -->
+<li>It allows easy control of both the flow rate and the column height, which is particularly useful for the Darcy column experiment;</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li>It is quick and easy to build: starting from the bare plexiglass tube, it takes only about 2 hours to assemble the full setup described below;</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li>Its low cost and ease of assembly make it possible to perform multiple tests, since it is not an issue if the column is damaged or destroyed. This also allowed us to carry out pseudo-2D tests.</li>
+<!-- /wp:list-item --></ul>
+<!-- /wp:list -->
+
+<!-- wp:group {"layout":{"type":"flex","orientation":"vertical","justifyContent":"center"}} -->
+<div class="wp-block-group"><!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading">A. Building the column</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>The base of the column is a 40 cm-high plexiglass tube, sealed on one end, which is pierced using a soldering iron in order to insert a threaded connector. Ideally, the hole can be tapped to match the connector size, but the connector can also be force-fitted while the plastic is still hot. We also added sealing gaskets around the connector.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:gallery {"linkTo":"none"} -->
+<figure class="wp-block-gallery has-nested-images columns-default is-cropped"><!-- wp:image {"id":217,"sizeSlug":"large","linkDestination":"none"} -->
+<figure class="wp-block-image size-large"><img src="https://molonari.io/wp-content/uploads/2025/11/maquette_1.jpg" alt="" class="wp-image-217"/></figure>
+<!-- /wp:image -->
+
+<!-- wp:image {"id":218,"sizeSlug":"large","linkDestination":"none"} -->
+<figure class="wp-block-image size-large"><img src="https://molonari.io/wp-content/uploads/2025/11/maquette_2.jpg" alt="" class="wp-image-218"/></figure>
+<!-- /wp:image --></figure>
+<!-- /wp:gallery -->
+
+<!-- wp:paragraph -->
+<p>We then added a filter at the bottom of the column to prevent the beads used in the experiment from escaping. To do this, we cut a circular piece of filter material slightly larger than the inner diameter of the column and made small notches along its edge so it could fit snugly against the walls. A round object was used to properly push the filter down to the bottom of the column.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:gallery {"linkTo":"none"} -->
+<figure class="wp-block-gallery has-nested-images columns-default is-cropped"><!-- wp:image {"id":219,"sizeSlug":"large","linkDestination":"none"} -->
+<figure class="wp-block-image size-large"><img src="https://molonari.io/wp-content/uploads/2025/11/maquette_3-1024x757.jpg" alt="" class="wp-image-219"/></figure>
+<!-- /wp:image --></figure>
+<!-- /wp:gallery -->
+
+<!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading">B. Building the sensors device</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Since the MOLONARI system is obviously too large to fit inside the column, we had to adapt it for this mock-up.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:list -->
+<ul class="wp-block-list"><!-- wp:list-item -->
+<li>We used a thin metal rod to which we taped the four temperature sensors and a small tube used to measure the pressure at the bottom of the column (note: hose clamps would be preferable, as they are more resistant to water).</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li>The differential pressure sensor was split into two parts: the membrane was coated in silicone so it could be immersed in the column, while the electronic module was placed outside the column due to space constraints. The differential pressure sensor was calibrated at room temperature to obtain the law $latex \Delta h = f(U)$, with $latex f(x) = 39.804x – 41.978$.</li>
+<!-- /wp:list-item --></ul>
+<!-- /wp:list -->
+
+<!-- wp:paragraph -->
+<p>As no homemade data loggers were available at the time we built this mock-up, we used Hoboware data loggers to record the measurements.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:gallery {"linkTo":"none"} -->
+<figure class="wp-block-gallery has-nested-images columns-default is-cropped"><!-- wp:image {"id":220,"sizeSlug":"large","linkDestination":"none"} -->
+<figure class="wp-block-image size-large"><img src="https://molonari.io/wp-content/uploads/2025/11/maquette_4.jpg" alt="" class="wp-image-220"/></figure>
+<!-- /wp:image --></figure>
+<!-- /wp:gallery -->
+
+<!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading">C. Setting up the mock-up</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>The column is then integrated into a hydraulic circuit to simulate water circulation. A tube runs from the bottom of the column to drain into a large buffer tank, which makes it easier to maintain steady-state conditions. The pump draws water from this tank to supply the top of the column. It is important that the water level in the buffer tank and in the column be at the same height so that, under steady-state conditions, the flow rate corresponds to the head loss in the column, allowing Darcy’s law to be applied.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>The sensor rod is then installed inside the column, after which the mixture of beads is poured in. The column can then be filled with water.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>The pump must be adjusted to reach steady-state flow. Note that, to initiate the hydraulic circuit, it is necessary to increase the pump frequency above the steady-state value.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:gallery {"linkTo":"none"} -->
+<figure class="wp-block-gallery has-nested-images columns-default is-cropped"><!-- wp:image {"id":221,"sizeSlug":"large","linkDestination":"none"} -->
+<figure class="wp-block-image size-large"><img src="https://molonari.io/wp-content/uploads/2025/11/maquette_5.jpg" alt="" class="wp-image-221"/></figure>
+<!-- /wp:image --></figure>
+<!-- /wp:gallery -->
+
+<!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading">D. Determination of $latex n$, $latex K$ and $latex c_m$</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Porosity is determined by measuring the mass of a given volume of beads outside of water and the mass of that same volume of beads filled with water. Since porosity is defined as the ratio between the volume of water and the total volume of beads plus water, it can be obtained by knowing the mass of beads used, the mass of added water, and the densities of both materials. With a mixture consisting of 30% beads of 2 mm diameter and 70% beads of 7 mm diameter, we obtain a porosity of 34%.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>Permeability is determined by applying Darcy’s law, which relates the flow rate in the column, the column height, and the head difference. The head difference is measured with the differential pressure sensor, while the column height corresponds to the height of the porous material. The flow rate can be easily determined by placing a container at the outlet of the tube connected to the bottom of the column and measuring the filling time. Note: to maintain the same operating conditions, the volume of water in the buffer tank must be much larger than the measured volume—i.e., the water level in the container should hardly change during the measurement. It is also necessary to ensure that the height of the outlet tube used for measuring the flow rate remains constant. For the same bead mixture as above, we obtain an intrinsic permeability of $latex 3.1 \cdot 10^{-9} m^2$.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>Finally, the thermal capacity of the medium is obtained using simple calorimetry experiments. The glass making up the beads has a heat capacity of 2300 J/kg/K.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading">E. Pseudo-2D</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>With the aim of performing measurements involving a source term—that is, an intermediate gain or loss of thermal energy—we decided to drill three holes in the column. These holes create leaks and therefore make it possible to model heat loss toward the sides of the river.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:gallery {"linkTo":"none"} -->
+<figure class="wp-block-gallery has-nested-images columns-default is-cropped"><!-- wp:image {"id":222,"sizeSlug":"large","linkDestination":"none"} -->
+<figure class="wp-block-image size-large"><img src="https://molonari.io/wp-content/uploads/2025/11/maquette_6.jpg" alt="" class="wp-image-222"/></figure>
+<!-- /wp:image --></figure>
+<!-- /wp:gallery -->
+
+<!-- wp:paragraph -->
+<p>The holes were made using a soldering iron and then tapped to accommodate the threaded fittings. Again, we used sealing gaskets to reduce leakage. Note that resin could also be used to achieve perfect watertightness.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>The leaks created in this way are directed toward the buffer tank using small tubes. The column can be returned to a 1D system by tying a knot at the end of these tubes.</p>
+<!-- /wp:paragraph --></div>
+<!-- /wp:group -->
+
+<!-- wp:group {"style":{"spacing":{"padding":{"top":"var:preset|spacing|50"}}},"layout":{"type":"flex","orientation":"vertical"}} -->
+<div id="testing" class="wp-block-group" style="padding-top:var(--wp--preset--spacing--50)"><!-- wp:heading -->
+<h2 class="wp-block-heading">Testing the MOLONARI device</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>In order to test the MOLONARI system (photo below) as it was designed—that is, with the sensor rod and the control unit for data recording and transmission—it was necessary to build a larger-scale mock-up.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:group {"layout":{"type":"flex","orientation":"vertical","justifyContent":"center"}} -->
+<div class="wp-block-group"><!-- wp:gallery {"linkTo":"none"} -->
+<figure class="wp-block-gallery has-nested-images columns-default is-cropped"><!-- wp:image {"id":223,"sizeSlug":"large","linkDestination":"none"} -->
+<figure class="wp-block-image size-large"><img src="https://molonari.io/wp-content/uploads/2025/11/maquette_7.jpg" alt="" class="wp-image-223"/></figure>
+<!-- /wp:image --></figure>
+<!-- /wp:gallery -->
+
+<!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading">A. Building the mock-up</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>The mock-up is made of nine plexiglass panels bonded together with resin: four panels are attached to a fifth one, which serves as the base of the mock-up, using resin, and the remaining four panels reinforce the lower part of the side walls. The entire assembly is bonded with resin, and the interior corners are sealed with gaskets, as is the exterior base of the mock-up.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>To strengthen the mock-up compared with last year’s version so that it would not fail under pressure, we decided to reinforce it using metal bars that we drilled and screwed together. This helps to limit deformation of the mock-up walls.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>Finally, to allow water circulation, three holes were drilled at the top and at the bottom of the mock-up so that threaded fittings could be installed. The three bottom fittings were sealed to ensure watertightness. Filters were glued inside the mock-up at the level of the bottom fittings to prevent the porous material from entering the pump.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:gallery {"linkTo":"none"} -->
+<figure class="wp-block-gallery has-nested-images columns-default is-cropped"><!-- wp:image {"id":224,"sizeSlug":"large","linkDestination":"none"} -->
+<figure class="wp-block-image size-large"><img src="https://molonari.io/wp-content/uploads/2025/11/maquette_8.jpg" alt="" class="wp-image-224"/></figure>
+<!-- /wp:image -->
+
+<!-- wp:image {"id":225,"sizeSlug":"large","linkDestination":"none"} -->
+<figure class="wp-block-image size-large"><img src="https://molonari.io/wp-content/uploads/2025/11/maquette_9.jpg" alt="" class="wp-image-225"/></figure>
+<!-- /wp:image --></figure>
+<!-- /wp:gallery -->
+
+<!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading">B. Setting up the mock-up</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Water circulation is provided by a pump. The three upper fittings are connected in parallel with valves to control the flow rate in each branch. A similar setup is used at the bottom.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>The mock-up is then filled with glass beads of different diameters (2 mm, 5 mm, 7 mm) and subsequently flooded. The circulation flow rate is adjusted by changing the pump frequency.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>Finally, the MOLONARI rod is pushed into the medium by applying force and gently tapping it with a mallet.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>Water flow patterns—especially hot-water plumes—can also be visualized in the mock-up using a thermochromic pigment.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading">C. Pseudo-2D</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>A pseudo-2D circulation can be established in the mock-up by leaving only one valve open at the top and one at the bottom. The two open valves must be positioned opposite each other—for example, the upper left valve and the lower right one.</p>
+<!-- /wp:paragraph --></div>
+<!-- /wp:group --></div>
+<!-- /wp:group --></div>
+<!-- /wp:group -->
