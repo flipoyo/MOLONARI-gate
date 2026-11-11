@@ -1,4 +1,4 @@
-# Deploying the MOLONARI website v0.3.0
+# Deploying the MOLONARI website v0.3.1
 
 This file aims to explain the process of deploying the Molonari website.
 
@@ -51,6 +51,36 @@ pixi run site plan            # unchanged | update (diff) | create | drift; writ
 pixi run site push            # applies the plan; refuses a page in drift, --adopt <slug> overwrites it
 pixi run test-all             # version check, tests, offline site check
 ```
+
+### Connecting `molosite` to the site
+
+Run everything from a terminal on your own machine, inside `molonari.io/` (the MOLONARI-gate mount of the Operating Space), not on the VPS.
+
+1. **Once, in the browser:** log in to `https://molonari.io/wp-admin` as an administrator, create a user `molosite` with the **Editor** role, then open *that user's* profile (Users, `molosite`, Edit), go to *Application Passwords*, name it `molosite` and click *Add*. Copy the password shown: it appears once. Check that you are on the `molosite` profile, because a password created on another account does not work for it.
+2. **In every new terminal**, give the credentials to the environment (the password is typed, never echoed, never written to a file):
+
+```bash
+cd ~/.cgs/MOLONARI-20261111140733/molonari.io      # adapt to your Operating Space
+export MOLO_WP_USER=molosite
+read -rs MOLO_WP_APP_PASSWORD && export MOLO_WP_APP_PASSWORD   # paste the password, press Enter
+```
+
+3. **Check the connection:**
+
+```bash
+pixi run site plan
+```
+
+The first line printed is `connected as molosite`. The variables live in that terminal only; closing it forgets them.
+
+| Message | Meaning |
+|---|---|
+| `set MOLO_WP_USER and MOLO_WP_APP_PASSWORD in the environment` | step 2 was not done in this terminal |
+| `the server did not accept the credentials (… rest_not_logged_in)` | wrong user or password, a password created on another account, or the server drops the `Authorization` header: see `website/wordpress_building.md`, section *The server side the sync needs* |
+| `application passwords need HTTPS; refusing` | `base_url` in `website/site.toml` is not `https://` |
+| `refused … edited in WordPress since the last push` | `drift`: `pixi run site pull <slug>`, review, commit, then `push --adopt <slug>` |
+
+To stop the sync, revoke the password in WordPress (Users, `molosite`, Application Passwords): it is revocable on its own and gives no administrator rights.
 
 Each page in `website/site.toml` has a mode: `generated` (rendered from `website/templates/*.md.j2`), `managed` (raw blocks in `website/pages/<slug>.html`) or `editorial` (WordPress only, never touched). Every pushed page ends with a marker (source commit and sha256); a hand edit made in WordPress is reported as `drift`, never overwritten. The credentials are read from `MOLO_WP_USER` and `MOLO_WP_APP_PASSWORD` (an application password of an Editor account), and nothing is pushed over plain HTTP. Heading anchors are written `## Title {#id}`; Jinja comments are `{## ... ##}`.
 
