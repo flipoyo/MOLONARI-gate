@@ -3,7 +3,7 @@
 base_url = "https://molonari.io"
 branch = "CGS-MOLO"
 cgs_file = ".config/molonari.cgs"
-cgs_variants = [".config/molonari.cgs", ".config/molonari-light.cgs", ".config/simu-direct.cgs", ".config/install-orx.cgs"]
+cgs_variants = [".config/molonari.cgs", ".config/molonari-light.cgs", ".config/molonari-vps.cgs", ".config/simu-direct.cgs", ".config/install-orx.cgs"]
 
 [roles]
 "." = "MOLONARI1D: the entry point. It recomposes the Operating Space, is administered with pixi, and carries the project guides."
