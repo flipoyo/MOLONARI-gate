@@ -34,22 +34,23 @@ To use the plugin, simply type in `[sqlite_molonaviz]` in a text block in the Wo
 
 ## Deploying the database
 
-We now have to access the data logs from this PHP function. First, we clone the repository and create a Python environment in `Molonaviz`:
-```
-git clone https://github.com/flipoyo/MOLONARI1D.git
-cd MOLONARI1D
-pixi install
-pixi run python -m Molonaviz.src.receiver.main
+The plugin reads one SQLite file, `/var/lib/molonari/Molonari.sqlite`. It lives outside every checkout, so a `git pull` of the Operating Space never moves or breaks it. The folder is `755` and the file `644` (owner `root`), so the `www-data` user of PHP can read it.
+
+The file is a copy of the test database that ships with MOLONARI-API, `Molonaviz/TestDatabase/Molonari.sqlite.backup` in the Operating Space (the table `RawMeasuresTemp`, with `Date` and `Temp1` to `Temp4`). The receiver (`pixi run run-server` in `Molonaviz`) is an MQTT listener that runs until stopped; it is not needed to produce this file. To refresh it from the Operating Space, on the VPS:
+
+```bash
+cp $CGSHOME/Molonaviz/TestDatabase/Molonari.sqlite.backup /var/lib/molonari/Molonari.sqlite
+chmod 644 /var/lib/molonari/Molonari.sqlite
 ```
 
-This should create a `TestDatabase` folder and a `Molonari.sqlite` database inside. This file should be accessible from the WordPress service, i.e. `nginx`, i.e. the `www-data` user. To do so, we run `chmod +xr TestDatabase/Molonari.sqlite`.
+`CGSHOME` is `/root/.cgs/MOLONARI-vps-<date>`; see `wordpress_building.md`, section *The server routine*. The server loads the Operating Space `.config/molonari-vps.cgs`: it never held the old `/root/MOLONARI1D` clone (kept for a while as a backup, then deleted).
 
 ## Accessing the database
 
 The following code can be added to the function to query the database and display results:
 
 ```php
-$db_path = '/root/MOLONARI1D/Molonaviz/TestDatabase/Molonari.sqlite';
+$db_path = '/var/lib/molonari/Molonari.sqlite';
 
 if (!file_exists($db_path)) {
     return "Error: Database file not found.";

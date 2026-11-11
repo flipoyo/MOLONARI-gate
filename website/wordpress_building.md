@@ -40,6 +40,24 @@ Two things on the VPS are not in git and are needed for the REST login to work:
 
 Rebuilding the VPS means redoing both. Without them, `pixi run site` fails with `rest_not_logged_in`.
 
+## The server routine
+
+The VPS runs `molosite` by itself, so a commit on `CGS-MOLO` reaches the site within the hour. Everything below is on the VPS, as root, and none of it is in git:
+
+| What | Where |
+|---|---|
+| Operating Space (the public repositories, from `.config/molonari-vps.cgs`) | `/root/.cgs/MOLONARI-vps-<date>`; the gate is its `molonari.io/` |
+| Credentials: an application password named `molosite-vps` of the `molosite` account | `/root/.molosite.env`, mode `600`, exports `MOLO_WP_USER` and `MOLO_WP_APP_PASSWORD` |
+| The script | `/usr/local/sbin/molosite-sync`: `molo update`, then `pixi run --frozen site push`, under `flock` |
+| The schedule | root crontab: `17 * * * * /usr/local/sbin/molosite-sync >> /var/log/molosite-sync.log 2>&1` |
+| The log, rotated weekly | `/var/log/molosite-sync.log`, rotation in `/etc/logrotate.d/molosite-sync` |
+
+Read the last run with `tail -30 /var/log/molosite-sync.log`. A run ending in `exit 1` needs a person, almost always a page in `drift`: nothing was overwritten. Run it by hand with `/usr/local/sbin/molosite-sync`.
+
+`--frozen` matters: without it pixi rewrites the gate's `pixi.lock` each time the gate version moves, the checkout becomes dirty and `push` refuses. Never run `pixi lock` in that checkout. To stop the sync, remove the cron line, or revoke the `molosite-vps` application password in WordPress (it gives no administrator rights).
+
+To rebuild this on a new server: install pixi, `git clone -b CGS-MOLO https://github.com/flipoyo/MOLONARI1D.git`, `pixi install`, `pixi run molo load .config/molonari-vps.cgs --https`, then the two server settings above, the credentials file, the script and the cron line.
+
 ## Editing an editorial page in WordPress
 
 WordPress is a tool that helps us build robust HTML/CSS pages quickly.
