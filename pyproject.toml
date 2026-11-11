@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "molosite"
+version = "0.2.0"
+description = "Keeps the molonari.io WordPress site in step with the CGS-MOLO branch of MOLONARI1D"
+requires-python = ">=3.11,<3.14"
+license = { text = "Apache-2.0" }
+dependencies = ["requests", "markdown-it-py", "jinja2"]
+
+[project.scripts]
+molosite = "molosite.cli:main"
+
+[tool.setuptools]
+package-dir = { "" = "src" }
+packages = ["molosite"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

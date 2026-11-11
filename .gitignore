@@ -1,0 +1,7 @@
+# Credentials never live in the tree; backups and the orchestrator record stay local
+.env*
+.dev/.backup/
+.dev/.record/
+.pixi/
+__pycache__/
+*.egg-info/

@@ -1,0 +1,11 @@
+# The page map of molonari.io. `pixi run site pull` fills the pages; the owner then sets each page's mode:
+#   generated = rendered from MOLONARI1D CGS-MOLO, managed = raw blocks in website/pages/, editorial = WordPress only.
+base_url = "https://molonari.io"
+branch = "CGS-MOLO"
+cgs_file = ".config/molonari.cgs"
+cgs_variants = [".config/molonari.cgs", ".config/molonari-light.cgs", ".config/simu-direct.cgs", ".config/install-orx.cgs"]
+
+[roles]
+Molonaviz = "MOLONARI-API: the Molonaviz application, the receiver and the database."
+
+[sections]

@@ -1,4 +1,4 @@
-# Deploying the MOLONARI website v0.1.1
+# Deploying the MOLONARI website v0.2.0
 
 This file aims to explain the process of deploying the Molonari website.
 
@@ -40,6 +40,19 @@ The `@` host can be changed to any value, for example `www` or `mysubdomain`. In
 This maps: www.molonari.io → molonari.io 
 
 **Checking:** We can verify that the DNS has been updated worldwide with the website [dnschecker.org](https://dnschecker.org/).
+
+## Keeping the WordPress site in step: `molosite`
+
+`molosite` (in `src/molosite`) renders the pages that describe the project from the `CGS-MOLO` checkouts of the Operating Space and pushes them to WordPress through the REST API. It is run by pixi:
+
+```bash
+pixi run site pull            # raw block markup of every live page -> website/pages/, listed in website/site.toml
+pixi run site plan            # unchanged | update (diff) | create | drift; writes nothing
+pixi run site push            # applies the plan; refuses a page in drift, --adopt <slug> overwrites it
+pixi run test-all             # version check, tests, offline site check
+```
+
+Each page in `website/site.toml` has a mode: `generated` (rendered from `website/templates/*.md.j2`), `managed` (raw blocks in `website/pages/<slug>.html`) or `editorial` (WordPress only, never touched). Every pushed page ends with a marker (source commit and sha256); a hand edit made in WordPress is reported as `drift`, never overwritten. The credentials are read from `MOLO_WP_USER` and `MOLO_WP_APP_PASSWORD` (an application password of an Editor account), and nothing is pushed over plain HTTP. Heading anchors are written `## Title {#id}`; Jinja comments are `{## ... ##}`.
 
 ## Contributors
 
