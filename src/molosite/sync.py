@@ -8,7 +8,7 @@ import hashlib
 import json
 import re
 import subprocess
-from dataclasses import dataclass, field
+from dataclasses import dataclass, field, replace
 from pathlib import Path
 from typing import Callable
 
@@ -124,6 +124,8 @@ def plan(site: Site, root: Path, wp: WordPress, source_factory: Callable[[], obj
             entries.append(Entry(page, CREATE, body, src, facts=pinned[0], source=pinned[1]))
             continue
         live = live_page["content"]["raw"]
+        if page.id is None:
+            page = replace(page, id=live_page["id"])  # found by slug: the id is the live one
         live_body, mark = marker.split(live)
         baseline = bool(page.pulled_sha256) and marker.digest(live) == page.pulled_sha256
         trusted = (mark is not None and marker.intact(live)) or baseline
@@ -169,7 +171,8 @@ def push(site: Site, root: Path, wp: WordPress, entries: list[Entry], adopt: set
             body = _norm(render_generated(root, e.page, e.facts, e.source, lambda n, d: wp.find_media(n) or wp.upload_media(n, d)))
         content = marker.write(body, e.src)
         if e.action == CREATE:
-            wp.create_page(slug, e.page.title or slug, content, e.page.parent, e.page.menu_order)
+            created = wp.create_page(slug, e.page.title or slug, content, e.page.parent, e.page.menu_order)
+            e.page = replace(e.page, id=created["id"])
         else:
             wp.update_page(e.page.id, content)
         say(f"pushed   {slug} ({e.action})")

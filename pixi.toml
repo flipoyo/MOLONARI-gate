@@ -1,7 +1,7 @@
 # MOLONARI-gate (molonari.io): deployment notes, server and website, and `molosite`, the sync of the WordPress site.
 [workspace]
 name = "molonari-gate"
-version = "0.3.2"
+version = "0.3.3"
 channels = ["conda-forge"]
 platforms = ["linux-64", "osx-64", "osx-arm64", "win-64"]
 

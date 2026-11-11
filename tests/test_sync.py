@@ -199,3 +199,25 @@ def test_push_refuses_a_page_changed_since_plan(gate, site, space):
     lines = []
     assert push(site, gate, wp(), entries, set(), factory(space), lines.append) == 1
     assert post.call_count == 0 and "changed on the site" in lines[0]
+
+
+@responses.activate
+def test_page_found_by_slug_is_updated_by_its_live_id(gate, space):
+    site = Site(sections={"r": "README.md#Recompose"}, pages=(Page("operating-space", None, "OS", "generated", "operating-space.md.j2"),))
+    responses.get(f"{API}/pages", json=[{**live(marker.write("<p>stale</p>", "x"), 9), "slug": "operating-space"}])
+    responses.get(f"{API}/pages/9", json=live(marker.write("<p>stale</p>", "x"), 9))
+    post = responses.post(f"{API}/pages/9", json={"id": 9})
+    entries = plan(site, gate, wp(), factory(space))
+    assert entries[0].action == UPDATE and entries[0].page.id == 9
+    push(site, gate, wp(), entries, set(), factory(space), lambda s: None)
+    assert post.call_count == 1
+
+
+@responses.activate
+def test_created_page_records_its_id(gate, space):
+    site = Site(sections={"r": "README.md#Recompose"}, pages=(Page("operating-space", None, "OS", "generated", "operating-space.md.j2"),))
+    responses.get(f"{API}/pages", json=[])
+    responses.post(f"{API}/pages", json={"id": 77})
+    entries = plan(site, gate, wp(), factory(space))
+    push(site, gate, wp(), entries, set(), factory(space), lambda s: None)
+    assert entries[0].page.id == 77

@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+from dataclasses import replace
 import sys
 from pathlib import Path
 
@@ -61,6 +62,20 @@ def _check(site: Site, make_source) -> list[str]:
     return problems
 
 
+def _push_and_record(args, site: Site, wp: WordPress, entries, make_source) -> int:
+    """Push, then write the ids of the pages found or created into site.toml, so the next run addresses them by id."""
+    try:
+        return push(site, GATE_ROOT, wp, entries, set(args.adopt), make_source)
+    finally:
+        known = {p.slug: p for p in site.pages}
+        changed = [e.page for e in entries if e.page.id is not None and known[e.page.slug].id is None]
+        if changed:
+            for page in changed:
+                site = replace(site, pages=tuple(page if p.slug == page.slug else p for p in site.pages))
+            save(site, args.site)
+            print(f"site.toml: recorded the id of {', '.join(p.slug for p in changed)}. Commit it.")
+
+
 def main(argv: list[str] | None = None) -> int:
     args = _parser().parse_args(argv)
     try:
@@ -86,7 +101,8 @@ def main(argv: list[str] | None = None) -> int:
                 print(e.diff)
         if args.command == "plan":
             return 1 if any(e.action == DRIFT for e in entries) else 0
-        return push(site, GATE_ROOT, wp, entries, set(args.adopt), make_source)
+        code = _push_and_record(args, site, wp, entries, make_source)
+        return code
     except (ConfigError, SyncError, SourceError, WPError) as exc:
         print(f"molosite: {exc}", file=sys.stderr)
         return 2
