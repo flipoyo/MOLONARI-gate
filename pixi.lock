@@ -1615,8 +1615,8 @@ packages:
   timestamp: 1733255681319
 - pypi: ./
   name: molosite
-  version: 0.3.6
-  sha256: 835d167ff9481c9aef0f63aec0689621491d1dfdc245afdd558d0113dff05581
+  version: 0.4.0
+  sha256: a525104bfedbc5537f28237fc96e84fdfc2db2438504eb7dbbadcba1d42a30d7
   requires_dist:
   - requests
   - markdown-it-py

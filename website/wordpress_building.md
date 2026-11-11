@@ -50,7 +50,8 @@ The VPS runs `molosite` by itself, so a commit on `CGS-MOLO` reaches the site wi
 |---|---|
 | Operating Space (the public repositories, from `.config/molonari-vps.cgs`) | `/root/.cgs/MOLONARI-vps-<date>`; the gate is its `molonari.io/` |
 | Credentials: an application password named `molosite-vps` of the `molosite` account | `/root/.molosite.env`, mode `600`, exports `MOLO_WP_USER` and `MOLO_WP_APP_PASSWORD` |
-| The script | `/usr/local/sbin/molosite-sync`: `molo update`, then `pixi run --frozen site push`, under `flock` |
+| The settings: the space, its `.cgs`, the receiver and its database | `/etc/molonari/vps.env`, from `server/vps/vps.env.example` |
+| The script | `/usr/local/sbin/molosite-sync`, from `server/vps/molosite-sync.sh`: `molo update`, then `pixi run --frozen site push`, under `flock` |
 | The schedule | root crontab: `17 * * * * /usr/local/sbin/molosite-sync >> /var/log/molosite-sync.log 2>&1` |
 | The log, rotated weekly | `/var/log/molosite-sync.log`, rotation in `/etc/logrotate.d/molosite-sync` |
 
@@ -58,7 +59,7 @@ Read the last run with `tail -30 /var/log/molosite-sync.log`. A run ending in `e
 
 `--frozen` matters: without it pixi rewrites the gate's `pixi.lock` each time the gate version moves, the checkout becomes dirty and `push` refuses. Never run `pixi lock` in that checkout. To stop the sync, remove the cron line, or revoke the `molosite-vps` application password in WordPress (it gives no administrator rights).
 
-To rebuild this on a new server: install pixi, `git clone -b CGS-MOLO https://github.com/flipoyo/MOLONARI1D.git`, `pixi install`, `pixi run molo load .config/molonari-vps.cgs --https`, then the two server settings above, the credentials file, the script and the cron line.
+The full record of the server setup, and how to rebuild it, is [server/OperatingSpaceDeploy.md](../server/OperatingSpaceDeploy.md). Changing the `.cgs`, the receiver or its database is [server/reset-data-receiver.md](../server/reset-data-receiver.md).
 
 ## Editing an editorial page in WordPress
 

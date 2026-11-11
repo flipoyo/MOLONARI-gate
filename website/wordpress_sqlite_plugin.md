@@ -36,12 +36,7 @@ To use the plugin, simply type in `[sqlite_molonaviz]` in a text block in the Wo
 
 The plugin reads one SQLite file, `/var/lib/molonari/Molonari.sqlite`. It lives outside every checkout, so a `git pull` of the Operating Space never moves or breaks it. The folder is `755` and the file `644` (owner `root`), so the `www-data` user of PHP can read it.
 
-The file is a copy of the test database that ships with MOLONARI-API, `Molonaviz/TestDatabase/Molonari.sqlite.backup` in the Operating Space (the table `RawMeasuresTemp`, with `Date` and `Temp1` to `Temp4`). The receiver (`pixi run run-server` in `Molonaviz`) is an MQTT listener that runs until stopped; it is not needed to produce this file. To refresh it from the Operating Space, on the VPS:
-
-```bash
-cp $CGSHOME/Molonaviz/TestDatabase/Molonari.sqlite.backup /var/lib/molonari/Molonari.sqlite
-chmod 644 /var/lib/molonari/Molonari.sqlite
-```
+The file is a copy of the test database that ships with MOLONARI-API, `Molonaviz/TestDatabase/Molonari.sqlite.backup` in the Operating Space (the table `RawMeasuresTemp`, with `Date` and `Temp1` to `Temp4`). The receiver (`pixi run run-server` in `Molonaviz`) is an MQTT listener that runs until stopped; it is not needed to produce this file. To refresh it, or to take it from another receiver or another database, on the VPS: `reset-data-receiver --check`, then `reset-data-receiver`. The script reads the source from `/etc/molonari/vps.env`, refuses a file the plugin could not show, and keeps the previous one as `Molonari.sqlite.prev` (see [server/reset-data-receiver.md](../server/reset-data-receiver.md)).
 
 `CGSHOME` is `/root/.cgs/MOLONARI-vps-<date>`; see `wordpress_building.md`, section *The server routine*. The server loads the Operating Space `.config/molonari-vps.cgs`: it never held the old `/root/MOLONARI1D` clone (kept for a while as a backup, then deleted).
 
