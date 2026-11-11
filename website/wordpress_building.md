@@ -34,11 +34,13 @@ The menu, the header and the footer belong to the Site editor. They are set by h
 
 ## The server side the sync needs
 
-Two things on the VPS are not in git and are needed for the REST login to work:
+Three things on the VPS are not in git. The first two are needed for the REST login to work, the third for the certificate renewal:
 - in the nginx site (`/etc/nginx/sites-available/molonari.io`), in the `location ~ \.php$` block: `fastcgi_param HTTP_AUTHORIZATION $http_authorization;`
 - the must-use plugin `wp-content/mu-plugins/molosite-basic-auth.php`, which copies the Basic login of the `Authorization` header into `PHP_AUTH_USER` and `PHP_AUTH_PW`.
 
-Rebuilding the VPS means redoing both. Without them, `pixi run site` fails with `rest_not_logged_in`.
+- in the same nginx file, `www.molonari.io` is in both `server_name` lines and the port-80 redirect is `if ($host ~ ^(www\.)?molonari\.io$) { return 301 https://$host$request_uri; }`. Without it the Let's Encrypt challenge for `www` gets a 404 and `certbot renew --dry-run` fails (INCIDENT_20261111, the "www" failure).
+
+Rebuilding the VPS means redoing all three. Without them, `pixi run site` fails with `rest_not_logged_in`.
 
 ## The server routine
 

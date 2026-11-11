@@ -290,3 +290,15 @@ graph LR
 
 About 10 h of development (S1–S5) and 3 h with the owner (S2 modes, S6 review
 and push, S7 if wanted).
+
+## Closed — 2026-11-11
+
+S1 to S7 are done, and the acceptance list is met, with these differences from the plan:
+
+- The web server is nginx with PHP-FPM, not Apache. The REST login needed a `fastcgi_param HTTP_AUTHORIZATION` line in the nginx site and a must-use plugin that fills `PHP_AUTH_USER`/`PHP_AUTH_PW` (`wordpress_building.md`, *The server side the sync needs*).
+- The `certbot renew --dry-run` failure for `www` (B6) came from nginx: `www` was in no `server_name` and the port-80 redirect matched only the apex. Fixed in the nginx site; the dry run passes for both names.
+- Modules: `source.py`, `facts.py` and `sync.py` replace the one-job-each list of S1.
+- The server loads its own Operating Space, `.config/molonari-vps.cgs` (public repositories only, no private one), and runs `/usr/local/sbin/molosite-sync` from cron every hour. `pixi run --frozen` keeps the gate checkout clean.
+- `askdb` reads `/var/lib/molonari/Molonari.sqlite`, a copy of the Molonaviz test database (B8).
+- Releases: MOLONARI-gate 0.1.1 to 0.3.x (not the planned 0.2.0), because the tool and S6 were two separate minor releases.
+- Not verified from the terminal: the WordPress revisions of `gallery`, `results` and `askdb` (no write is made to an editorial page, by tests and by `plan`).
