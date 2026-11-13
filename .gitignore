@@ -5,3 +5,6 @@
 .pixi/
 __pycache__/
 *.egg-info/
+Molonaviz
+data
+data-light
