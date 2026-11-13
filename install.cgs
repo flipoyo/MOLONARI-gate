@@ -1,0 +1,11 @@
+repos = [
+    "github:flipoyo/MOLONARI-gate",
+    { repository = "github:flipoyo/MOLONARI-API", relative_path = "Molonaviz", default_branch = "CGS-MOLO" },
+    { repository = "github:flipoyo/MOLONARI-data", relative_path = "data", default_branch = "CGS-MOLO" },
+    { repository = "github:flipoyo/MOLO-data-light", relative_path = "data-light", default_branch = "CGS-MOLO" },
+    { repository = "github:flipoyo/.memory", relative_path = ".cgitsync/.memory", fallback_branch = "main", private = true, writable = true, nested_config = "disabled" },
+]
+
+[project]
+name = "MOLONARI-gate"
+default_branch = "CGS-MOLO"
